@@ -108,6 +108,9 @@ class SwipeableViews extends Component {
     this.panResponder = PanResponder.create({
       // Claim responder if it's a horizontal pan
       onMoveShouldSetPanResponder: (event, gestureState) => {
+        if(that.props.disabled){
+             return false;
+          }
         return Math.abs(gestureState.dx) > Math.abs(gestureState.dy);
       },
       onPanResponderRelease: this.handleTouchEnd,
@@ -119,8 +122,19 @@ class SwipeableViews extends Component {
 
   componentWillReceiveProps(nextProps) {
     const {
-      index,
+      index, 
+      disabled
     } = nextProps;
+
+
+      if(disabled && !this.state.disabled){
+        this.setState({disabled: disabled});
+
+      }
+      if(this.state.disabled && !disabled) {
+        this.setState({disabled: disabled});
+      }
+
 
     if (typeof index === 'number' && index !== this.props.index) {
       this.setState({
