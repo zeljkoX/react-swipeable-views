@@ -99,6 +99,7 @@ class SwipeableViews extends Component {
   };
 
   componentWillMount() {
+    let that = this;
     this.setState({
       indexLatest: this.props.index,
       indexCurrent: new Animated.Value(this.props.index),
